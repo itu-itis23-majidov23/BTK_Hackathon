@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "BTKHackathon Extension",
+    "version": "1.0",
+    "description": "A Chrome extension for the BTK Hackathon",
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "host_permissions": [
+        "ws://localhost:8765/*",
+        "http://localhost:8765/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": "icon128.png"
+    }
+}

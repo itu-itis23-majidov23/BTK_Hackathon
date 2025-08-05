@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Arka Plan Değiştirici</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+      width: 350px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 5px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #status {
+      margin: 10px 0;
+      padding: 5px;
+      background-color: #f8f9fa;
+      border-radius: 3px;
+      min-height: 20px;
+      font-size: 12px;
+    }
+
+    #imageContainer {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      min-height: 60px;
+      background-color: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+  <h3>Kıyafet Gösterici</h3>
+  <button id="showUponMe">Üstümde Göster</button>
+  
+  <div id="status"></div>
+  
+  <div id="resultContainer" style="margin-top: 15px; padding: 10px; border: 2px solid #28a745; border-radius: 5px; background-color: #f8fff9;">
+    <h4 style="margin: 0 0 10px 0; color: #28a745;">Sonuç:</h4>
+    <div id="resultImage" style="text-align: center; min-height: 200px; display: flex; align-items: center; justify-content: center; background-color: #fff; border: 1px dashed #28a745; border-radius: 5px;">
+      <span style="color: #6c757d;">Henüz işlem yapılmadı</span>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
