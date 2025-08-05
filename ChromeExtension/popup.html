@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Arka Plan Değiştirici</title>
+  <title>Virtual Try-On Extension</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -27,6 +27,75 @@
       background-color: #0056b3;
     }
 
+    button:disabled {
+      background-color: #6c757d;
+      cursor: not-allowed;
+    }
+
+    .button-group {
+      margin-bottom: 10px;
+    }
+
+    .mode-selector {
+      margin-bottom: 15px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+
+    .mode-selector label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .mode-selector input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    .upload-section {
+      margin-bottom: 15px;
+      padding: 10px;
+      background-color: #e9ecef;
+      border-radius: 5px;
+    }
+
+    .upload-section label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .file-input {
+      width: 100%;
+      padding: 8px;
+      border: 2px dashed #d1ecf1;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      background-color: #f8f9fa;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .file-input:hover {
+      border-color: #007bff;
+      background-color: #e3f2fd;
+    }
+
+    .file-input:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    }
+
+    .image-preview {
+      max-width: 100%;
+      max-height: 150px;
+      border-radius: 4px;
+      margin-top: 5px;
+      display: none;
+    }
+
     #status {
       margin: 10px 0;
       padding: 5px;
@@ -47,18 +116,42 @@
   </style>
 </head>
 <body>
-  <h3>Kıyafet Gösterici</h3>
-  <button id="showUponMe">Üstümde Göster</button>
+  <h3>Virtual Try-On</h3>
   
-  <div id="status"></div>
-  
-  <div id="resultContainer" style="margin-top: 15px; padding: 10px; border: 2px solid #28a745; border-radius: 5px; background-color: #f8fff9;">
-    <h4 style="margin: 0 0 10px 0; color: #28a745;">Sonuç:</h4>
-    <div id="resultImage" style="text-align: center; min-height: 200px; display: flex; align-items: center; justify-content: center; background-color: #fff; border: 1px dashed #28a745; border-radius: 5px;">
-      <span style="color: #6c757d;">Henüz işlem yapılmadı</span>
+  <div class="mode-selector">
+    <label>Select Mode:</label>
+    <div>
+      <input type="radio" id="quickMode" name="mode" value="quick" checked>
+      <label for="quickMode">Quick Mode (Default Model)</label>
+    </div>
+    <div>
+      <input type="radio" id="customMode" name="mode" value="custom">
+      <label for="customMode">Custom Model Mode</label>
     </div>
   </div>
-  
+
+  <div id="quickModeButtons" class="button-group">
+    <button id="showUponMe">Try On Garment (Quick)</button>
+  </div>
+
+  <div id="customModeButtons" class="button-group" style="display: none;">
+    <div class="upload-section">
+      <label for="modelImageInput">Upload Model Image:</label>
+      <input type="file" id="modelImageInput" class="file-input" accept="image/*" onchange="event.stopPropagation();">
+      <img id="modelImagePreview" class="image-preview" alt="Model preview">
+      <button type="button" id="clearModelBtn" style="background-color: #dc3545; font-size: 12px; padding: 5px 10px; display: none; margin-top: 5px;">
+        Clear Model Image
+      </button>
+      <div id="uploadStatus" style="font-size: 11px; color: #666; margin-top: 5px; display: none;">
+        Image uploaded and stored ✓
+      </div>
+    </div>
+    <button id="processCustomViton" disabled>Process Virtual Try-On</button>
+  </div>
+
+  <div id="status">Ready to process images...</div>
+  <div id="imageContainer">Results will appear here...</div>
+
   <script src="popup.js"></script>
 </body>
 </html>

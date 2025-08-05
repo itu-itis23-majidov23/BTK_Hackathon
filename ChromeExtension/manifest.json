@@ -1,11 +1,12 @@
 {
     "manifest_version": 3,
-    "name": "BTKHackathon Extension",
+    "name": "Virtual Try-On Extension",
     "version": "1.0",
-    "description": "A Chrome extension for the BTK Hackathon",
+    "description": "Virtual try-on with model upload capability",
     "permissions": [
         "activeTab",
-        "scripting"
+        "scripting",
+        "storage"
     ],
     "host_permissions": [
         "ws://localhost:8765/*",

@@ -4,11 +4,14 @@
 
 This is a complete virtual try-on solution developed for the BTK Hackathon that combines AI-powered garment visualization with a Chrome extension for seamless e-commerce integration. The project allows users to virtually try on clothing items directly from e-commerce websites like Amazon, Hepsiburada, and Trendyol.
 
+**🆕 NEW FEATURE**: This branch now supports **dynamic model selection**, where both the model image and garment image can be selected directly from web pages through the Chrome extension.
+
 ### What This Project Does
 
 - **Virtual Try-On AI**: Uses [OOTDiffusion](https://github.com/levihsu/OOTDiffusion) to realistically place garments on a model
 - **AI-Generated Garments**: Leverages [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) from [Nebius](https://nebius.com) AI Studio for garment generation
 - **Chrome Extension**: Automatically extracts product images from e-commerce sites and processes them through the AI pipeline
+- **🔥 Dynamic Model Selection**: Select both model and garment images directly from any webpage
 - **WebSocket Server**: Real-time communication between the browser extension and AI backend
 - **MCP Server**: Model Context Protocol server capabilities for integration with AI assistants
 - **High-Performance Inference**: FastAPI backend deployed on [Modal](https://modal.com) with Nvidia A100 for fast processing
@@ -22,6 +25,9 @@ The system works by extracting clothing images from e-commerce websites, sending
 ```bash
 git clone https://huggingface.co/spaces/Agents-MCP-Hackathon/viton-mcp-server
 cd viton-mcp-server
+
+# Switch to the dynamic model selection branch
+git checkout dynamic-model-selection
 ```
 
 ### 2. Create and Activate Python Environment
@@ -62,20 +68,27 @@ The server will start on `ws://localhost:8765` and be ready to accept connection
 4. Select the `ChromeExtension` folder from this project directory
 5. The extension icon should appear in your Chrome toolbar
 
-### Usage
+### Usage Modes
 
+The extension now supports two modes:
+
+#### 🚀 Quick Mode (Default Model)
 1. **Start the Python server** (see setup instructions above)
 2. **Navigate to an e-commerce website** (Amazon, Hepsiburada, Trendyol, etc.)
 3. **Find a clothing item page** with product images
-4. **Click the extension icon** in the Chrome toolbar
-5. **Click "Üstümde Göster" (Show on Me)** button
-6. The extension will automatically:
-   - Extract the product image from the page
-   - Send it to the Python server via WebSocket
-   - Process it using the VTON AI model
-   - Display the result showing how the garment looks on the model
+4. **Click the extension icon** and select "Quick Mode"
+5. **Click "Try On Garment (Quick)"** button
+6. The extension will use a default model and process the garment
 
-### Supported E-commerce Sites
+#### 🎯 Custom Model Mode (NEW!)
+1. **Start the Python server** (see setup instructions above)
+2. **Navigate to any webpage** with both model and garment images
+3. **Click the extension icon** and select "Custom Model Mode"
+4. **Click "1. Select Model Image"** - then click on any person image on the webpage
+5. **Click "2. Select Garment Image"** - then click on any clothing item image
+6. **Click "3. Process Virtual Try-On"** to start processing with both selected images
+
+### Supported E-commerce Sites (Quick Mode)
 
 The extension automatically detects clothing images from:
 
@@ -87,39 +100,57 @@ The extension automatically detects clothing images from:
   - `p-card-img` (main page)
   - `_carouselThumbsImage_ddecc3e` (product page)
 
+### Custom Mode Works On Any Website!
+
+The new custom mode allows you to select any images from any website - fashion blogs, social media, online catalogs, etc.
+
 ## Project Architecture
 
 ```
 viton-mcp-server/
-├── run.py              # Main WebSocket server
+├── run.py              # Enhanced WebSocket server with dual image support
 ├── start_server.py     # Convenience startup script
-├── requirements.txt    # Python dependencies
-├── model_7.png        # Model image for try-on
-├── ChromeExtension/   # Chrome extension files
+├── requirements.txt    # Python dependencies (includes websockets & requests)
+├── model_7.png        # Default model image for quick mode
+├── ChromeExtension/   # Enhanced Chrome extension files
 │   ├── manifest.json  # Extension configuration
-│   ├── popup.html     # Extension popup UI
-│   ├── popup.js       # Extension logic
+│   ├── popup.html     # Enhanced popup UI with mode selection
+│   ├── popup.js       # Enhanced logic with dual image support
 │   ├── content.js     # Page content extraction
 │   └── background.js  # Background processes
 └── results/           # Output directory for processed images
 ```
 
-## Features
+## Enhanced Features
 
-- **One-Click Virtual Try-On**: Complete automation with a single button click
-- **Smart Image Detection**: Automatically finds product images on supported sites
-- **Real-Time Processing**: WebSocket communication for instant results
-- **Responsive Design**: Results displayed proportionally in the browser
-- **Multi-Site Support**: Works across major e-commerce platforms
-- **AI-Powered Generation**: Can generate new garments using FLUX.1-dev
-- **MCP Integration**: Compatible with AI assistant workflows
+- **🔄 Dual Processing Modes**: Quick mode for e-commerce and custom mode for any images
+- **🖱️ Interactive Image Selection**: Click-to-select interface for choosing model and garment images
+- **📱 Smart UI**: Mode switching with appropriate controls and visual feedback
+- **🔄 Real-Time Status Updates**: Live progress tracking during processing
+- **💾 Image Download & Processing**: Automatic image downloading and temporary file management
+- **🔙 Backward Compatibility**: Legacy support for existing quick mode functionality
+- **🎨 Visual Feedback**: Image previews and selection confirmations
+- **⚡ WebSocket Communication**: Enhanced message types for model and garment images
+
+## Message Protocol
+
+The WebSocket server now supports these message types:
+
+- `model_image`: Send model image URL
+- `garment_image`: Send garment image URL  
+- `image`: Legacy mode (garment only, uses default model)
+- `processed_image`: Returns the virtual try-on result
+- `status`: Progress updates
+- `error`: Error messages
 
 ## Troubleshooting
 
 - **Server not starting**: Make sure all dependencies are installed and the virtual environment is activated
 - **Extension not working**: Verify the extension is loaded and developer mode is enabled
-- **No images detected**: Check if you're on a supported e-commerce site with product images
+- **No images detected**: Check if you're on a supported e-commerce site with product images (Quick Mode)
+- **Custom mode not working**: Ensure images are clickable and have valid URLs
 - **Connection errors**: Ensure the Python server is running on `ws://localhost:8765`
+- **Image download fails**: Check internet connection and image URL accessibility
 
 ## Sample Images
 

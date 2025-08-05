@@ -2,3 +2,4 @@ pillow==9.4.0
 gradio[mcp]==5.33.0
 requests==2.32.3
 python-dotenv==1.1.0
+websockets
