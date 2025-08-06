@@ -13,8 +13,6 @@ This is a complete virtual try-on solution developed for the BTK Hackathon that 
 - **Chrome Extension**: Automatically extracts product images from e-commerce sites and processes them through the AI pipeline
 - **🔥 Dynamic Model Selection**: Select both model and garment images directly from any webpage
 - **WebSocket Server**: Real-time communication between the browser extension and AI backend
-- **MCP Server**: Model Context Protocol server capabilities for integration with AI assistants
-- **High-Performance Inference**: FastAPI backend deployed on [Modal](https://modal.com) with Nvidia A100 for fast processing
 
 The system works by extracting clothing images from e-commerce websites, sending them through a WebSocket connection to a Python server, processing them with AI models, and displaying the virtual try-on results directly in the browser.
 
