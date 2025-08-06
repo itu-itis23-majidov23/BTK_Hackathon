@@ -10,8 +10,6 @@ This is a complete virtual try-on solution developed for the BTK Hackathon that 
 - **AI-Generated Garments**: Leverages [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) from [Nebius](https://nebius.com) AI Studio for garment generation
 - **Chrome Extension**: Automatically extracts product images from e-commerce sites and processes them through the AI pipeline
 - **WebSocket Server**: Real-time communication between the browser extension and AI backend
-- **MCP Server**: Model Context Protocol server capabilities for integration with AI assistants
-- **High-Performance Inference**: FastAPI backend deployed on [Modal](https://modal.com) with Nvidia A100 for fast processing
 
 The system works by extracting clothing images from e-commerce websites, sending them through a WebSocket connection to a Python server, processing them with AI models, and displaying the virtual try-on results directly in the browser.
 
@@ -112,7 +110,6 @@ viton-mcp-server/
 - **Responsive Design**: Results displayed proportionally in the browser
 - **Multi-Site Support**: Works across major e-commerce platforms
 - **AI-Powered Generation**: Can generate new garments using FLUX.1-dev
-- **MCP Integration**: Compatible with AI assistant workflows
 
 ## Troubleshooting
 
